@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    #appcontainer{
+        width: 1333px;
+    border: 5px solid red;
+    }
+  #splashScreen{
+        text-align: center;
+        position: relative;
+    }
+    #startbtn{
+        width: 108px;
+        height: 53px;
+        position: absolute;
+        left: calc(50% - 50px);
+        top: 60%;
+    }
+    #gameover{
+        left: calc(37% - 37px);
+        width: 108px;
+        height: 53px;
+        position: absolute;
+        top: 60%;
+    }
+    #gameovericon{
+        left: calc(37% - 37px);
+        width: 308px;
+        height: 53px;
+        position: absolute;
+        top: 60%;
+    }
+ 
+    #startbtn:hover{
+       opacity: 0.8;
+       cursor: pointer;
+    }
+    #gamescreen{
+        text-align: center;
+        position: relative;
+    }
+    .stats img {
+        width: 200px;
+    }
+    .stats {
+    /* position: absolute;
+    right: 0;
+    top: 28px;
+    left: 81%; */
+    position: absolute;
+            right: 4%;
+            top: 4%;
+            width: 200px;
+}
+#gameScore{
+    top: 20%;
+
+}
+.stats strong{
+    /* position: absolute;
+    top: 90%;
+    font-size: 1.6em;
+    left: 43%; */
+    font-size: 3em;
+            position: relative;
+            top: -13px;
+            left: 70px;
+}
+#black-screen{
+    position: absolute;
+    right: -700%;
+    top: -669%;
+}
+.baloon{
+    width: 100px;
+    position: absolute;
+    bottom: 2%;
+    left: calc(100% - 234px);
+}
+.baloon1{
+    width: 100px;
+    position: absolute;
+    bottom: 2%;
+    left: calc(100% - 158px);
+}
+.baloon2{
+    width: 100px;
+    position: absolute;
+    bottom: 2%;
+    left: calc(100% - 328px);
+}
+    
+</style>
+<body>
+    <section id="appcontainer">
+    <div id="splashScreen">
+        <img src="background.jpg">
+        <img src="start-btn.png" id="startbtn">
+        </div>
+    <div id="gamescreen" style="display : none">
+        <img src="game-screen.jpg">
+    </div>
+    <div id="gamechance" class="stats">
+        <img src="chances.png">
+        <strong id="chancebox">5</strong>
+    </div>
+    <div id="gameScore" class="stats">
+            <img src="score.png">
+            <strong id="gamescore">0</strong>
+        </div>
+        
+    <div id="gameover" style="display : none">
+            <img id="black-screen" src="game-screen.jpg">
+              <img id="gameovericon" src="game-over.png">
+    </div>
+   
+    </section>
+    <script>
+    startbtn.onclick = startgame;
+    let speed = 1500;
+    let score = 0;
+    let gameStarted = false;
+   
+    function startgame(){
+        splashScreen.style.display = "none";
+        gamescreen.style.display = "";
+       gamekey =  setInterval(() => {
+
+        let baloon = document.createElement("img");
+        baloon.setAttribute("class", "baloon");
+        baloon.src = "baloon-0.png";
+        gamescreen.appendChild(baloon);
+        let baloon1 = document.createElement("img");
+        baloon1.setAttribute("class", "baloon1");
+        baloon1.src = "baloon-1.png";
+        gamescreen.appendChild(baloon1);
+        let baloon2 = document.createElement("img");
+        baloon2.setAttribute("class", "baloon2");
+        baloon2.src = "baloon-2.png";
+
+        gamescreen.appendChild(baloon2);
+       
+        
+  
+
+        baloon.style.left = (Math.random() * 1290) + "px";
+        baloon1.style.left = (Math.random() * 1290) + "px";
+        baloon2.style.left = (Math.random() * 1290) + "px";
+        baloon.onclick = () => {
+                score++;
+                gamescore.innerText = score;
+            
+            baloon.remove();
+          
+        }
+        baloon1.onclick = () => {
+                score++;
+                gamescore.innerText = score;
+            
+            baloon1.remove();
+          
+        }
+        baloon2.onclick = () => {
+                score++;
+                gamescore.innerText = score;
+            
+            baloon2.remove();
+          
+        }
+
+    setInterval(() => {
+                baloon.style.top = (baloon.offsetTop - 1) + "px";
+        if((baloon.offsetTop + baloon.offsetHeight) < 0){
+            baloon.remove();
+            if(chancebox.innerText > 1){
+                chancebox.innerText = chancebox.innerText - 1;
+            } else {
+                gamescreen.style.display = "none";
+                gameover.style.display = "";
+                clearInterval(gamekey);
+            }
+ 
+            
+        }
+    },20);
+    setInterval(() => {
+        baloon1.style.top = (baloon1.offsetTop - 1) + "px";
+        if((baloon1.offsetTop + baloon1.offsetHeight) < 0){
+            baloon1.remove();
+            if(chancebox.innerText > 1){
+                chancebox.innerText = chancebox.innerText - 1;
+            } else {
+                gamescreen.style.display = "none";
+                gameover.style.display = "";
+                clearInterval(gamekey);
+            }
+        }
+        },7);
+        setInterval(() => {
+        baloon2.style.top = (baloon2.offsetTop - 1) + "px";
+        if((baloon2.offsetTop + baloon2.offsetHeight) < 0){
+            baloon2.remove();
+            if(chancebox.innerText > 1){
+                chancebox.innerText = chancebox.innerText - 1;
+            } else {
+                gamescreen.style.display = "none";
+                gameover.style.display = "";
+                clearInterval(gamekey);
+            }
+        }
+    },13);
+
+    }, speed); 
+    }
+    
+   
+    </script>
+</body>
+</html>
